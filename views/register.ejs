@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> - Bird Learning App</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card animate-fadeInUp">
+            <div class="login-header">
+                <div class="logo-large">
+                    🐦 Bird Learning
+                </div>
+                <p class="login-subtitle">Erstellen Sie Ihr kostenloses Konto</p>
+            </div>
+            
+            <div class="login-form-container">
+                <% if (error) { %>
+                    <div class="alert alert-danger">
+                        <%= error %>
+                    </div>
+                <% } %>
+                
+                <form action="/auth/register" method="POST" class="login-form">
+                    <div class="form-group">
+                        <label for="username" class="form-label">
+                            <span class="label-icon">👤</span>
+                            Benutzername
+                        </label>
+                        <input 
+                            type="text" 
+                            id="username" 
+                            name="username" 
+                            class="form-control"
+                            placeholder="Wählen Sie einen Benutzernamen"
+                            required
+                            minlength="3"
+                            pattern="[a-zA-Z0-9_]+"
+                            title="Nur Buchstaben, Zahlen und Unterstriche erlaubt"
+                            autocomplete="username"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="form-label">
+                            <span class="label-icon">📧</span>
+                            E-Mail-Adresse
+                        </label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            class="form-control"
+                            placeholder="ihre.email@beispiel.de"
+                            required
+                            autocomplete="email"
+                        >
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password" class="form-label">
+                            <span class="label-icon">🔒</span>
+                            Passwort
+                        </label>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password" 
+                            class="form-control"
+                            placeholder="Mindestens 6 Zeichen"
+                            required
+                            minlength="6"
+                            autocomplete="new-password"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword" class="form-label">
+                            <span class="label-icon">🔒</span>
+                            Passwort bestätigen
+                        </label>
+                        <input 
+                            type="password" 
+                            id="confirmPassword" 
+                            name="confirmPassword" 
+                            class="form-control"
+                            placeholder="Passwort wiederholen"
+                            required
+                            autocomplete="new-password"
+                        >
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-large w-100 login-btn">
+                        <span class="btn-icon">🎯</span>
+                        Registrieren
+                    </button>
+                </form>
+                
+                <div class="login-divider">
+                    <span>oder</span>
+                </div>
+                
+                <div class="register-link">
+                    <p>Bereits ein Konto?</p>
+                    <a href="/auth/login" class="btn btn-outline btn-large w-100">
+                        <span class="btn-icon">🔑</span>
+                        Jetzt anmelden
+                    </a>
+                </div>
+            </div>
+            
+            <div class="login-footer">
+                <div class="features-preview">
+                    <div class="feature-item">
+                        <span class="feature-icon">🎮</span>
+                        <span class="feature-text">Memory-Spiele</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🔊</span>
+                        <span class="feature-text">Vogelstimmen</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">📚</span>
+                        <span class="feature-text">Spaced Repetition</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🇩🇪</span>
+                        <span class="feature-text">Deutsche Namen</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="background-birds">
+            <div class="bird-silhouette bird-1">🦅</div>
+            <div class="bird-silhouette bird-2">🐦</div>
+            <div class="bird-silhouette bird-3">🦜</div>
+            <div class="bird-silhouette bird-4">🐧</div>
+            <div class="bird-silhouette bird-5">🦆</div>
+        </div>
+    </div>
+    
+    <script src="/js/main.js"></script>
+    <script>
+        // Client-side password confirmation validation
+        document.getElementById('confirmPassword').addEventListener('input', function() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = this.value;
+            
+            if (password !== confirmPassword) {
+                this.setCustomValidity('Passwörter stimmen nicht überein');
+            } else {
+                this.setCustomValidity('');
+            }
+        });
+    </script>
+</body>
+</html>

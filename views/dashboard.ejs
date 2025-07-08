@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> - Bird Learning App</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+    <div class="page-wrapper">
+        <!-- Header -->
+        <header class="header">
+            <nav class="nav">
+                <a href="/dashboard" class="logo">
+                    🐦 Bird Learning
+                </a>
+                
+                <ul class="nav-links">
+                    <li><a href="/dashboard" class="nav-link active">Dashboard</a></li>
+                    <li><a href="/birds/nearby" class="nav-link">Vögel finden</a></li>
+                    <li><a href="/learning" class="nav-link">Lernen</a></li>
+                </ul>
+                
+                <div class="user-menu">
+                    <span class="username">Hallo, <%= user.username %>!</span>
+                    <form action="/auth/logout" method="POST" style="display: inline;">
+                        <button type="submit" class="btn btn-small btn-outline">Abmelden</button>
+                    </form>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <main class="content-area">
+            <div class="container">
+                <div class="dashboard-header">
+                    <h1 class="page-title animate-fadeInUp">
+                        <span class="title-icon">🏠</span>
+                        Dashboard
+                    </h1>
+                    <p class="page-subtitle">Willkommen zurück! Bereit für eine neue Lernsession?</p>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="stats-grid animate-fadeInUp" style="animation-delay: 0.2s;">
+                    <div class="stat-card">
+                        <div class="stat-icon">🐦</div>
+                        <div class="stat-content">
+                            <div class="stat-number" id="totalBirds">-</div>
+                            <div class="stat-label">Gesammelte Vögel</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">⭐</div>
+                        <div class="stat-content">
+                            <div class="stat-number" id="masteredBirds">-</div>
+                            <div class="stat-label">Level 5 Vögel</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-content">
+                            <div class="stat-number" id="accuracy">-</div>
+                            <div class="stat-label">Erfolgsrate</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">🔥</div>
+                        <div class="stat-content">
+                            <div class="stat-number" id="streak">-</div>
+                            <div class="stat-label">Tage-Streak</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Actions -->
+                <div class="main-actions animate-fadeInUp" style="animation-delay: 0.4s;">
+                    <div class="action-section">
+                        <h2 class="section-title">
+                            <span class="section-icon">➕</span>
+                            Vögel hinzufügen
+                        </h2>
+                        <div class="action-grid">
+                            <a href="/birds/nearby" class="action-card primary-action">
+                                <div class="action-icon">📍</div>
+                                <div class="action-content">
+                                    <h3>Vögel in meiner Nähe</h3>
+                                    <p>Entdecken Sie Vögel in Ihrer Umgebung und fügen Sie sie zu Ihrer Sammlung hinzu</p>
+                                </div>
+                                <div class="action-arrow">→</div>
+                            </a>
+                            
+                            <a href="/birds/add-single" class="action-card">
+                                <div class="action-icon">🔍</div>
+                                <div class="action-content">
+                                    <h3>Einzelnen Vogel hinzufügen</h3>
+                                    <p>Suchen Sie nach einem bestimmten Vogel über den lateinischen Namen</p>
+                                </div>
+                                <div class="action-arrow">→</div>
+                            </a>
+                            
+                            <a href="/birds/lists" class="action-card">
+                                <div class="action-icon">📋</div>
+                                <div class="action-content">
+                                    <h3>Aus Listen hinzufügen</h3>
+                                    <p>Wählen Sie aus kuratierten Listen wie Gartenvögel oder Waldvögel</p>
+                                </div>
+                                <div class="action-arrow">→</div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="action-section">
+                        <h2 class="section-title">
+                            <span class="section-icon">🎮</span>
+                            Vögel lernen
+                        </h2>
+                        <div class="action-grid">
+                            <a href="/learning/memory" class="action-card primary-action">
+                                <div class="action-icon">🧠</div>
+                                <div class="action-content">
+                                    <h3>Memory-Spiel</h3>
+                                    <p>Ordnen Sie Vogelstimmen den passenden Bildern zu</p>
+                                </div>
+                                <div class="action-arrow">→</div>
+                            </a>
+                            
+                            <a href="/learning/names" class="action-card">
+                                <div class="action-icon">✏️</div>
+                                <div class="action-content">
+                                    <h3>Namen lernen</h3>
+                                    <p>Geben Sie deutsche oder lateinische Namen ein</p>
+                                </div>
+                                <div class="action-arrow">→</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="recent-activity animate-fadeInUp" style="animation-delay: 0.6s;">
+                    <h2 class="section-title">
+                        <span class="section-icon">📈</span>
+                        Letzte Aktivitäten
+                    </h2>
+                    <div class="activity-feed" id="activityFeed">
+                        <!-- Dynamically loaded -->
+                        <div class="loading">
+                            <div class="spinner"></div>
+                            Lade Aktivitäten...
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Learning Progress -->
+                <div class="learning-progress animate-fadeInUp" style="animation-delay: 0.8s;">
+                    <h2 class="section-title">
+                        <span class="section-icon">📊</span>
+                        Lernfortschritt
+                    </h2>
+                    <div class="progress-grid">
+                        <div class="progress-card">
+                            <h3>Nächste Wiederholung</h3>
+                            <div class="next-birds" id="nextBirds">
+                                <!-- Dynamically loaded -->
+                            </div>
+                        </div>
+                        
+                        <div class="progress-card">
+                            <h3>Schwache Karten (Level 1-2)</h3>
+                            <div class="weak-birds" id="weakBirds">
+                                <!-- Dynamically loaded -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/dashboard.js"></script>
+</body>
+</html>
